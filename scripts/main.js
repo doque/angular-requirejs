@@ -3,8 +3,7 @@ requirejs.config({
 	paths: {
 		'angular': '../bower_components/angular/angular',
 		'angular-resource': '../bower_components/angular-resource/angular-resource',
-		'app': '../scripts/app',
-		'MyCtrl': '../scripts/MyCtrl'
+		'app': '../scripts/app' // 'app' is the module name. It got defined by define() block, and  can be loaded by either require() or define() block
 	},
 	shim: {
 		'angular': {
@@ -14,5 +13,18 @@ requirejs.config({
 			deps: ['angular'],
 		}
 	},
-	deps: ['MyCtrl']
+});
+
+
+
+require(["app"], function(app) {
+
+	app.controller("MyCtrl", ['$scope', '$resource',
+		function($scope, $resource) {
+			console.log("hello"); // this doesn't work
+			$scope.items = [1, 3, 4, 5];
+		}
+	]);
+	angular.bootstrap(document, ['MyApp']);
+
 });
